@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.springframework.org/schema/beans
+     https://www.springframework.org/schema/beans/spring-beans.xsd">
+     
+     <bean id="a1" class="secondaryarray.Address">
+            <property name="citys" value="Pune"></property>    
+     </bean>
+     
+      <bean id="a2" class="secondaryarray.Address">
+            <property name="citys" value="Mumbai"></property>     
+     </bean>
+     
+      <bean id="a3" class="secondaryarray.Address">
+            <property name="citys" value="Nashik"></property>      
+     </bean>
+     
+     
+     
+    <bean  id="s" class="secondaryarray.Student" >
+            <property name="sid"  value="101"></property>
+            <property name="sname" value="Devang Shinde"></property>
+            <property name="address">
+             <list>
+              <ref bean="a1"/>
+              <ref bean="a2"/>
+              <ref bean="a3"/>
+             </list>
+            </property>      
+     </bean>
+     
+     
+     
+</beans>
