@@ -33,4 +33,32 @@ public class ServiceImpl implements ServiceI{
 		return di.getAllData(us, pw);
 	}
 
+	@Override
+	public void deleteData(int sid) {
+		
+		di.deleteData(sid);
+		
+		
+	}
+
+	@Override
+	public List<Student> getAllStudents() {
+		
+		return di.getAllStudents();
+	}
+
+	@Override
+	public Student editData(int sid) {
+		
+		return di.editData(sid);
+	}
+
+	@Override
+	public int updateData(Student stu) {
+		
+		
+		
+		return di.updateData(stu);
+	}
+
 }

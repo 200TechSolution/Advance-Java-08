@@ -37,12 +37,13 @@ public class HomeController {
 	}
 
 	@RequestMapping("/log")
-	public String getData(@RequestParam("user") String us, @RequestParam("pass") String pw) {
+	public String getData(@RequestParam("user") String us, @RequestParam("pass") String pw, Model m) {
 
 		System.out.println("Inside Login check");
-		if(us.equals("admin") && pw.equals("123")) {
+		if (us.equals("admin") && pw.equals("123")) {
 			System.out.println("inside admin login");
 			List<Student> studentsList = si.getAllData(us, pw);
+			m.addAttribute("data", studentsList);
 			Iterator<Student> itr = studentsList.iterator();
 			while (itr.hasNext()) {
 				Student stu = itr.next();
@@ -53,12 +54,14 @@ public class HomeController {
 				System.out.println(stu.getPass());
 				System.out.println("*-********");
 			}
+			return "success";
 
 		}
 
-		else if(us.equals(us) && pw.equals(pw)) {
+		else if (us.equals(us) && pw.equals(pw)) {
 
 			List<Student> singleData = si.getSingleData(us, pw);
+			m.addAttribute("data", singleData);
 
 			Iterator<Student> itr = singleData.iterator();
 			while (itr.hasNext()) {
@@ -69,12 +72,46 @@ public class HomeController {
 				System.out.println(stu.getUser());
 				System.out.println(stu.getPass());
 			}
-			return "index";
+			return "success";
 
 		}
 
 		return "index";
 
+	}
+	@RequestMapping("/delete")
+	public String deleteStudent(@RequestParam("radio") int sid, Model m)
+	{
+		
+		si.deleteData(sid);
+		 List<Student> allStudents = si.getAllStudents();
+		 m.addAttribute("data", allStudents);
+		return "success";
+		
+	}
+	
+	@RequestMapping("/edit")
+	public String editStudent(@RequestParam("radio")int sid,Model m)
+	{
+		  Student stu = si.editData(sid);
+		  m.addAttribute("data",stu);
+		return "update";
+	}
+	
+	@RequestMapping("/update")
+	public String updateStudent(@ModelAttribute Student s,Model m)
+	{
+		int sid = si.updateData(s);
+		 List<Student> allStudents = si.getAllStudents();
+		
+		if(sid!=0)
+		{
+			m.addAttribute("data",allStudents );
+			
+			return "success";
+		}
+		return "index";
+			
 	}
 
 }

@@ -50,5 +50,41 @@ public class DaoImpl implements DaoI{
         List studentsList = query.getResultList();
 		return studentsList;
 	}
+	@Override
+	public void deleteData(int sid) {
+		Session session=sf.openSession();
+		Transaction tx=session.beginTransaction();
+		
+		Student stuId = session.get(Student.class, sid);
+		session.delete(stuId);
+		tx.commit();
+		session.close();
+		
+	}
+	@Override
+	public List<Student> getAllStudents() {
+		 Session session=sf.openSession();
+	     Transaction tx=session.beginTransaction();
+	        Query query = session.createQuery("from Student");
+	        List studentsList = query.getResultList();
+			return studentsList;
+		
+	}
+	@Override
+	public Student editData(int sid) {
+		Session session=sf.openSession();
+		Transaction tx=session.beginTransaction();
+		Student stu = session.get(Student.class,sid);
+		
+		return stu;
+	}
+	@Override
+	public int updateData(Student s) {
+		Session session=sf.openSession();
+		Transaction tx=session.beginTransaction();
+		session.update(s);
+		tx.commit();
+		return s.getSid();
+	}
 
 }
